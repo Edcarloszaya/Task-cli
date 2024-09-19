@@ -21,8 +21,8 @@ class TodoList:
         "id":self.create_id(),
         "description":f'{description}',
         "status":"in-progress",
-        "createdAt":datetime.now().isoformat(),
-        "updateAt":"",
+        "createdAt":datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "updatedAt":"",
         }
         self.tasks.append(task)
         self.save_tasks()
@@ -43,7 +43,7 @@ class TodoList:
         task = self.get_task_by_id(id)
         if task:
             task["description"] = new_description
-            task["updateAt"] = datetime.now().isoformat()
+            task["updatedAt"] = datetime.now().strftime("%Y-%m-%d %H:%M")
             self.save_tasks()
             print(f'task updated')
            
@@ -102,8 +102,21 @@ class TodoList:
         else:
             print(F'Task {id} not found')
         
-    
+    def list(self):
+        for task in self.tasks:
+            print(f"id:{task['id']} description:{task['description']} status:{task['status']} created:{task['createdAt']} updated:{task['updatedAt']}")
+            
+    def list_done(self,done):
+        self.get_task_status(done)
 
+    def list_in_progress(self,in_progress):
+        self.get_task_status(in_progress)
 
-td = TodoList()
-td.mark_done(1)
+    def get_task_status(self,status):
+        """ retorna uma task pelo id"""
+        for task in self.tasks:
+            if task["status"] == status:
+                print(f"id:{task['id']} description:{task['description']} status:{task['status']} created:{task['createdAt']} updated:{task['updatedAt']}")
+            
+        return None
+
