@@ -61,6 +61,19 @@ class TodoList:
             with open(self.filepath, 'r') as file:
                 return json.load(file)
 
+    def delete(self,id):
+        '''deleta a tesk pelo id'''
+        for task in self.tasks:
+            if task["id"] == id:
+                self.tasks.remove(task)
+                self.save_tasks()
+                print('task deleted')
+
+            else:
+                print('Task with {id} not found')
+        
+        
+
 
 td = TodoList()
-td.update(1,"testando")
+td.delete(1)
