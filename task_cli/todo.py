@@ -26,6 +26,7 @@ class TodoList:
         }
         self.tasks.append(task)
         self.save_tasks()
+        print('Task added')
 
     def create_id(self):
         ''' cria um id unico'''
@@ -39,16 +40,15 @@ class TodoList:
     def update(self,id,new_description):
         ''' edita a task com base no id'''
 
-        for task in self.tasks:
-            if task["id"] == id:
-                task["description"] = new_description
-                task["updateAt"] = datetime.now().isoformat()
-                self.save_tasks()
-                print(f'task updated')
-                return
-            
-            else:
-                print(f"Task with ID {id} not found.")
+        task = self.get_task_by_id(id)
+        if task:
+            task["description"] = new_description
+            task["updateAt"] = datetime.now().isoformat()
+            self.save_tasks()
+            print(f'task updated')
+           
+        else:
+            print(f"Task with ID {id} not found.")
           
     def load_tasks(self):
         """Carrega as tarefas de um arquivo JSON ou cria o arquivo se não existir."""
@@ -63,17 +63,35 @@ class TodoList:
 
     def delete(self,id):
         '''deleta a tesk pelo id'''
+        task = self.get_task_by_id(id)
+        if task:
+            self.tasks.remove(task)
+            self.save_tasks()
+            print('task deleted')
+
+        else:
+            print('Task with {id} not found')
+        
+    def mark_in_progress(self,id):
+        """"atualiza o status da task"""
+        task = self.get_task_by_id(id)
+        if task:
+            task["status"] = "mark-in-progress"
+            self.save_tasks()
+            print(f"Task {id} marked in-progress")
+
+        else:
+            print(F'Task {id} not found')
+
+    def get_task_by_id(self,id):
+        """ retorna uma task pelo id"""
         for task in self.tasks:
             if task["id"] == id:
-                self.tasks.remove(task)
-                self.save_tasks()
-                print('task deleted')
-
-            else:
-                print('Task with {id} not found')
-        
-        
+                return task
+            
+        return None
+    
 
 
 td = TodoList()
-td.delete(1)
+td.add('teste')
