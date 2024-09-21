@@ -26,7 +26,7 @@ class TodoList:
         }
         self.tasks.append(task)
         self.save_tasks()
-        print('Task added')
+        print('\nTask added\n')
 
     def create_id(self):
         ''' cria um id unico'''
@@ -45,10 +45,10 @@ class TodoList:
             task["description"] = new_description
             task["updatedAt"] = datetime.now().strftime("%Y-%m-%d %H:%M")
             self.save_tasks()
-            print(f'task updated')
+            print(f'\ntask updated\n')
            
         else:
-            print(f"Task with ID {id} not found.")
+            print(f"\nTask with ID {id} not found.\n")
           
     def load_tasks(self):
         """Carrega as tarefas de um arquivo JSON ou cria o arquivo se não existir."""
@@ -67,10 +67,10 @@ class TodoList:
         if task:
             self.tasks.remove(task)
             self.save_tasks()
-            print('task deleted')
+            print('\ntask deleted\n')
 
         else:
-            print('Task with {id} not found')
+            print('\nTask with {id} not found\n')
         
     def mark_in_progress(self,id):
         """"atualiza o status da task pra in progress"""
@@ -78,10 +78,10 @@ class TodoList:
         if task:
             task["status"] = "in-progress"
             self.save_tasks()
-            print(f"Task {id} marked in-progress")
+            print(f"\nTask {id} marked in-progress\n")
 
         else:
-            print(F'Task {id} not found')
+            print(F'\nTask {id} not found\n')
 
     def get_task_by_id(self,id):
         """ retorna uma task pelo id"""
@@ -97,14 +97,17 @@ class TodoList:
         if task:
             task["status"] = "done"
             self.save_tasks()
-            print(f"Task {id} marked done")
+            print(f"\nTask {id} marked done\n")
 
         else:
-            print(F'Task {id} not found')
+            print(F'\nTask {id} not found\n')
         
     def list(self):
         for task in self.tasks:
-            print(f"id:{task['id']} description:{task['description']} status:{task['status']} created:{task['createdAt']} updated:{task['updatedAt']}")
+            
+            print(f"\nid:{task['id']} description:{task['description']} status:{task['status']} created:{task['createdAt']} updated:{task['updatedAt']}")
+
+        print(" ")
             
     def list_done(self,done):
         self.get_task_status(done)
@@ -116,7 +119,9 @@ class TodoList:
         """ retorna uma task pelo id"""
         for task in self.tasks:
             if task["status"] == status:
-                print(f"id:{task['id']} description:{task['description']} status:{task['status']} created:{task['createdAt']} updated:{task['updatedAt']}")
+                print(f"\nid:{task['id']} description:{task['description']} status:{task['status']} created:{task['createdAt']} updated:{task['updatedAt']}")
+        
+        print(" ")
             
         return None
 
