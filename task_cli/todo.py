@@ -76,7 +76,7 @@ class TodoList:
         """"atualiza o status da task pra in progress"""
         task = self.get_task_by_id(id)
         if task:
-            task["status"] = "marked-in-progress"
+            task["status"] = "in-progress"
             self.save_tasks()
             print(f"Task {id} marked in-progress")
 
@@ -95,7 +95,7 @@ class TodoList:
         """"atualiza o status da task pra done"""
         task = self.get_task_by_id(id)
         if task:
-            task["status"] = "marked-done"
+            task["status"] = "done"
             self.save_tasks()
             print(f"Task {id} marked done")
 
